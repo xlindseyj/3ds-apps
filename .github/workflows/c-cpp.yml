@@ -27,7 +27,7 @@ jobs:
         chmod +x install-devkitpro-pacman
         sudo ./install-devkitpro-pacman
         sudo dkp-pacman -Syy
-        sudo dkp-pacman -S devkitARM devkitPPC devkitPSP
+        sudo dkp-pacman -S devkitARM devkitPPC
 
     - name: Set up DEVKITPRO environment
       run: |
