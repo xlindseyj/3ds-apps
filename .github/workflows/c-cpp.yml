@@ -18,12 +18,19 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y build-essential libgcc-9-dev gcc-arm-none-eabi devkitpro-pacman
+        sudo apt-get install -y build-essential libgcc-9-dev gcc-arm-none-eabi wget
+
+    - name: Install devkitPro and components
+      run: |
+        # Download and install devkitPro package manager (dkp-pacman)
+        wget https://apt.devkitpro.org/install-devkitpro-pacman
+        chmod +x install-devkitpro-pacman
+        sudo ./install-devkitpro-pacman
+        sudo dkp-pacman -Syy
+        sudo dkp-pacman -S devkitARM devkitPPC devkitPSP
 
     - name: Set up DEVKITPRO environment
       run: |
-        sudo mkdir -p /opt/devkitpro
-        sudo devkitpro-pacman -S devkitARM devkitPPC devkitPSP
         echo "export DEVKITPRO=/opt/devkitpro" >> $GITHUB_ENV
         echo "export DEVKITARM=/opt/devkitpro/devkitARM" >> $GITHUB_ENV
         echo "export DEVKITPPC=/opt/devkitpro/devkitPPC" >> $GITHUB_ENV
