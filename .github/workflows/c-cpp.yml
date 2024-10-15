@@ -12,10 +12,32 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
-    - name: make
-      run: cd ./TailscaleDS && make
-    - name: make check
-      run: make check
-    - name: make distcheck
-      run: make distcheck
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y build-essential libgcc-9-dev gcc-arm-none-eabi devkitpro-pacman
+
+    - name: Set up DEVKITPRO environment
+      run: |
+        sudo mkdir -p /opt/devkitpro
+        sudo devkitpro-pacman -S devkitARM devkitPPC devkitPSP
+        echo "export DEVKITPRO=/opt/devkitpro" >> $GITHUB_ENV
+        echo "export DEVKITARM=/opt/devkitpro/devkitARM" >> $GITHUB_ENV
+        echo "export DEVKITPPC=/opt/devkitpro/devkitPPC" >> $GITHUB_ENV
+        echo "export DEVKITPSP=/opt/devkitpro/devkitPSP" >> $GITHUB_ENV
+
+    - name: Build the project
+      run: |
+        cd ./TailscaleDS
+        make
+
+    - name: Run make check
+      run: |
+        make check
+
+    - name: Run make distcheck
+      run: |
+        make distcheck
