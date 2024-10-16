@@ -1,8 +1,14 @@
 .DS_STORE
 node_modules/
-dist/
+dist/**/*
 TailscaleDS/build/**/*
 TailscaleDS/TailscaleDS.smdh
 TailscaleDS/TailscaleDS.elf
 TailscaleDS/TailscaleDS.3dsx
-build/
+build/**/*
+TailscaleDS/build/main.o
+TailscaleDS/build/network.o
+TailscaleDS/build/TailscaleDS.3dsx
+TailscaleDS/build/TailscaleDS.map
+TailscaleDS/build/TailscaleDS.smdh
+TailscaleDS/build/ui.o
