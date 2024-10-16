@@ -1,0 +1,50 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y build-essential libgcc-9-dev gcc-arm-none-eabi wget
+
+    - name: Install devkitPro and components
+      run: |
+        # Download and install devkitPro package manager (dkp-pacman)
+        wget https://apt.devkitpro.org/install-devkitpro-pacman
+        chmod +x install-devkitpro-pacman
+        sudo ./install-devkitpro-pacman
+        sudo dkp-pacman -Syy
+        sudo dkp-pacman -Syy devkitARM devkitPPC
+
+    - name: Set up DEVKITPRO environment
+      run: |
+        echo "export DEVKITPRO=/opt/devkitpro" >> $GITHUB_ENV
+        echo "export DEVKITARM=/opt/devkitpro/devkitARM" >> $GITHUB_ENV
+        echo "export DEVKITPPC=/opt/devkitpro/devkitPPC" >> $GITHUB_ENV
+        echo "export DEVKITPSP=/opt/devkitpro/devkitPSP" >> $GITHUB_ENV
+
+    - name: Build the project
+      run: |
+        cd ./TailscaleDS
+        make
+
+    - name: Run make check
+      run: |
+        make check
+
+    - name: Run make distcheck
+      run: |
+        make distcheck
