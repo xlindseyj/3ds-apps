@@ -1,0 +1,11 @@
+{
+  "name": "tailscaleds",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "install-dependencies": "bash scripts/install-dependencies.sh"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

@@ -6,35 +6,35 @@
 
 int main() {
     gfxInitDefault();
-    consoleInit(GFX_TOP, NULL);
+    initUI();
 
-    displayMessage("Initializing...");
+    displayMessage("Initializing...", 0.0f);
 
     if (initNetworking() != 0) {
-        displayMessage("Network initialization failed. Press START to exit.");
+        displayMessage("Network initialization failed. Press START to exit.", -1.0f);
         waitForKeyPress(KEY_START);
         cleanupUI();
         return -1;
     }
 
-    displayMessage("Press A to connect to the Tailscale network.");
+    displayMessage("Network initialized. Press A to connect to Tailscale.", 0.25f);
     waitForKeyPress(KEY_A);
 
     const char* api_key = getenv("TAILSCALE_API_KEY");
     if (!api_key) {
-        displayMessage("Error: TAILSCALE_API_KEY not set. Press START to exit.");
+        displayMessage("Error: TAILSCALE_API_KEY not set. Press START to exit.", -1.0f);
         waitForKeyPress(KEY_START);
         cleanupNetworking();
         cleanupUI();
         return -1;
     }
 
-    displayMessage("Connecting to Tailscale...");
+    displayMessage("Connecting to Tailscale...", 0.5f);
     if (connectToVPN(api_key) != 0) {
-        displayMessage("Failed to connect. Press START to exit.");
+        displayMessage("Failed to connect. Press START to exit.", -1.0f);
         waitForKeyPress(KEY_START);
     } else {
-        displayMessage("Connected to Tailscale! Press START to exit.");
+        displayMessage("Connected to Tailscale! Press START to exit.", 1.0f);
         waitForKeyPress(KEY_START);
     }
 
