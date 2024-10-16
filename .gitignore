@@ -5,3 +5,4 @@ TailscaleDS/build/**/*
 TailscaleDS/TailscaleDS.smdh
 TailscaleDS/TailscaleDS.elf
 TailscaleDS/TailscaleDS.3dsx
+build/
