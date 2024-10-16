@@ -1,7 +1,10 @@
 #ifndef UI_H
 #define UI_H
 
-void displayMessage(const char* message);
+#include <3ds/types.h>
+
+void initUI();
+void displayMessage(const char* message, float progress);
 void waitForKeyPress(u32 key);
 void cleanupUI();
 
