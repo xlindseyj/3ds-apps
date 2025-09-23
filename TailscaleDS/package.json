@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "install-dependencies": "bash scripts/install-dependencies.sh"
+    "build": "make && npm run move-build-files",
+    "install-dependencies": "bash scripts/install-dependencies.sh",
+    "move-build-files": "bash scripts/move-build-files.sh"
   },
   "author": "",
   "license": "ISC",
